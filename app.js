@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require("express")
 const mongoose = require("mongoose")
 const authRouter = require("./router/Auth")
+const contactRouter = require("./router/Contact")
 const cookieParser = require("cookie-parser")
 
 // Create an application object 
@@ -13,6 +14,7 @@ app.use(cookieParser())
 
 
 app.use("/login",authRouter)
+app.use("/contact",contactRouter)
 
 
 const port = 5000

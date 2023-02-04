@@ -4,13 +4,19 @@ const validator = require("validator")
 
 
 const {Schema} = mongoose;
-const {isEmail,isAlpha} = validator;
+const {isEmail,isAlpha,isMobilePhone} = validator;
+
+const isAlphaWithSpaces = (str) => {
+    const pattern = /^[a-zA-Z\s]+$/;
+    return pattern.test(str);
+  };
+
 
 const contactSchema = new Schema({
-    fullname:{
+    name:{
         type:String,
         required:[true,'Fullname is required'],
-        validate:[isAlpha,"Please enter valid fullname"]
+        validate:[isAlphaWithSpaces,"Please enter valid fullname"]
     },
     email:{
         type:String,
