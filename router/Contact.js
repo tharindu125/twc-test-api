@@ -26,11 +26,24 @@ contactRoute.get('/:id',async(req,res)=>{
     }
 })
 
+// Read by owner 
+
+contactRoute.get('/findbyowner/:owner',async(req,res)=>{
+    try {
+        const {owner} = req.params
+        const contacts = await contactModel.find({owner})
+        if (contacts.length == 0) throw Error("Not Found")
+        res.status(200).json(contacts)
+    } catch (error) {
+        res.status(400).json({error:error.message})
+    }
+})
+
 // Create one 
 contactRoute.post('/',async(req,res)=>{
     try {
-        const {name,email,phone_number,gender } = req.body
-        const contact = await contactModel.create({name,email,phone_number,gender })
+        const {name,email,phone_number,gender,owner } = req.body
+        const contact = await contactModel.create({name,email,phone_number,gender,owner})
         res.status(200).json(contact)
     } catch (error) {
         res.status(400).json({error:error.message})
@@ -41,10 +54,10 @@ contactRoute.post('/',async(req,res)=>{
 contactRoute.put('/:id',async(req,res)=>{
     try {
         const {id} = req.params;
-        const {name,email,phone_number,gender } = req.body
+        const {name,email,phone_number,gender,owner } = req.body
         const obj = {}
         // Filter undefined 
-        for (let[key,value] of Object.entries({name,email,phone_number,gender})) if (value != undefined) obj[key] = value;
+        for (let[key,value] of Object.entries({name,email,phone_number,gender,owner})) if (value != undefined) obj[key] = value;
         const contact = await contactModel.findByIdAndUpdate(id,obj)
         if (!contact) throw Error("Not found")
         res.sendStatus(200)

@@ -32,6 +32,10 @@ const contactSchema = new Schema({
         type:String,
         required:[true,'Gender is required'],
         enum:['Male','Female']
+    },
+    owner:{
+        type:String,
+        required:[true,'Owner is required']
     }
 })
 

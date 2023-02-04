@@ -4,11 +4,16 @@ const mongoose = require("mongoose")
 const authRouter = require("./router/Auth")
 const contactRouter = require("./router/Contact")
 const cookieParser = require("cookie-parser")
+const cors = require('cors')
 
 // Create an application object 
 const app = express()
 
 //middlewares
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials:true
+}))
 app.use(express.json())
 app.use(cookieParser())
 
