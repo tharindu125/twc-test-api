@@ -27,7 +27,6 @@ contactRoute.get('/:id',async(req,res)=>{
 })
 
 // Read by owner 
-
 contactRoute.get('/findbyowner/:owner',async(req,res)=>{
     try {
         const {owner} = req.params
